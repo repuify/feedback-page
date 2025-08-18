@@ -12,22 +12,34 @@
   </style>
 </head>
 <body>
-  <h1>Thanks for Your Feedback!</h1>
+  <h1>Thanks for Your Feedback<span id="client-name"></span>!</h1>
 
   <div id="happy" class="happy">
-    <p>We're so glad you had a great experience! 😊</p>
+    <p>We're so glad you had a great experience at <span id="clinic-name-happy"></span> 😊</p>
     <p>Would you mind leaving us a quick 5⭐ review on Google? It really helps us grow.</p>
-    <a href="https://www.google.com/search?q=googlereview&oq=googlereview&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQABgKGIAEMgkIAhAAGAoYgAQyCQgDEAAYChiABDIJCAQQABgKGIAEMgkIBRAAGAoYgAQyCQgGEAAYChiABDIKCAcQABiABBiiBDIKCAgQABiABBiiBNIBCDI1NDRqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8" class="button" target="_blank">Leave a Google Review</a>
+    <a id="review-button" href="#" class="button" target="_blank">Leave a Google Review</a>
   </div>
 
   <div id="unhappy" class="unhappy">
-    <p>Thank you for sharing your feedback.</p>
-    <p>We’re sorry we didn’t quite hit the mark — we’ll use your feedback to improve.</p>
+    <p>Thank you for your feedback, <span id="client-name-unhappy"></span>.</p>
+    <p>We’re sorry we didn’t quite hit the mark at <span id="clinic-name-unhappy"></span> — we’ll use your comments to improve.</p>
   </div>
 
   <script>
     const urlParams = new URLSearchParams(window.location.search);
     const score = parseInt(urlParams.get('score'), 10);
+    const clientName = urlParams.get('client_name') || '';
+    const clinicName = urlParams.get('clinic_name') || '';
+    const googleURL = urlParams.get('google_url') || '#';
+
+    // Personalise the page
+    document.getElementById('client-name').textContent = clientName ? `, ${clientName}` : '';
+    document.getElementById('client-name-unhappy').textContent = clientName;
+    document.getElementById('clinic-name-happy').textContent = clinicName;
+    document.getElementById('clinic-name-unhappy').textContent = clinicName;
+    document.getElementById('review-button').href = googleURL;
+
+    // Show section based on score
     if (score >= 4) {
       document.getElementById('happy').style.display = 'block';
     } else {
@@ -36,4 +48,3 @@
   </script>
 </body>
 </html>
-

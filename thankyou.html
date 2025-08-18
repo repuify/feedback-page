@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Thanks for Your Feedback!</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 50px; }
+    .happy, .unhappy { display: none; }
+    .button {
+      background-color: #4CAF50; color: white; padding: 10px 20px;
+      text-decoration: none; border-radius: 5px; margin-top: 20px; display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <h1>Thanks for Your Feedback!</h1>
+  <div id="happy" class="happy">
+    <p>We're so glad you had a great experience! 😊</p>
+    <p>Would you mind leaving us a quick 5⭐ review on Google? It really helps us grow.</p>
+    <a href="https://g.page/yourclinic/review" class="button" target="_blank">Leave a Google Review</a>
+  </div>
+
+  <div id="unhappy" class="unhappy">
+    <p>Thanks for sharing your thoughts.</p>
+    <p>We’re sorry we didn’t quite hit the mark this time. We’ll use your feedback to improve.</p>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const score = parseInt(urlParams.get('score'), 10);
+    if (score >= 9) {
+      document.getElementById('happy').style.display = 'block';
+    } else {
+      document.getElementById('unhappy').style.display = 'block';
+    }
+  </script>
+</body>
+</html>

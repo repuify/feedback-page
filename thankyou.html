@@ -2,49 +2,56 @@
 <html>
 <head>
   <title>Thanks for Your Feedback!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { font-family: sans-serif; text-align: center; padding: 50px; }
-    .happy, .unhappy { display: none; }
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px 20px;
+      background: #FDF7F2;
+      color: #333;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #D96C6C;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 20px;
+      line-height: 1.6;
+      margin: 16px 0;
+    }
+
     .button {
-      background-color: #4CAF50; color: white; padding: 10px 20px;
-      text-decoration: none; border-radius: 5px; margin-top: 20px; display: inline-block;
+      background-color: #FFA07A;
+      color: white;
+      padding: 14px 24px;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 18px;
+      display: inline-block;
+      margin-top: 25px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .happy, .unhappy {
+      display: none;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .emoji {
+      font-size: 36px;
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
-  <h1>Thanks for Your Feedback<span id="client-name"></span>!</h1>
+  <h1><span class="emoji">💬</span>Thanks for Your Feedback<span id="client-name"></span>!</h1>
 
   <div id="happy" class="happy">
-    <p>We're so glad you had a great experience at <span id="clinic-name-happy"></span> 😊</p>
-    <p>Would you mind leaving us a quick 5⭐ review on Google? It really helps us grow.</p>
-    <a id="review-button" href="#" class="button" target="_blank">Leave a Google Review</a>
-  </div>
-
-  <div id="unhappy" class="unhappy">
-    <p>Thank you for your feedback, <span id="client-name-unhappy"></span>.</p>
-    <p>We’re sorry we didn’t quite hit the mark at <span id="clinic-name-unhappy"></span> — we’ll use your comments to improve.</p>
-  </div>
-
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const score = parseInt(urlParams.get('score'), 10);
-    const clientName = urlParams.get('client_name') || '';
-    const clinicName = urlParams.get('clinic_name') || '';
-    const googleURL = urlParams.get('google_url') || '#';
-
-    // Personalise the page
-    document.getElementById('client-name').textContent = clientName ? `, ${clientName}` : '';
-    document.getElementById('client-name-unhappy').textContent = clientName;
-    document.getElementById('clinic-name-happy').textContent = clinicName;
-    document.getElementById('clinic-name-unhappy').textContent = clinicName;
-    document.getElementById('review-button').href = googleURL;
-
-    // Show section based on score
-    if (score >= 4) {
-      document.getElementById('happy').style.display = 'block';
-    } else {
-      document.getElementById('unhappy').style.display = 'block';
-    }
-  </script>
-</body>
-</html>
+    <p>We're so g

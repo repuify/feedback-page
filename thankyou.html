@@ -16,13 +16,13 @@
     h1 {
       font-size: 28px;
       color: #D96C6C;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
 
     p {
       font-size: 20px;
       line-height: 1.6;
-      margin: 16px 0;
+      margin: 14px 0;
     }
 
     .button {
@@ -48,10 +48,50 @@
       font-size: 36px;
       margin-bottom: 10px;
     }
+
+    .stars {
+      font-size: 28px;
+      color: #FFD700;
+      margin: 12px 0;
+    }
   </style>
 </head>
 <body>
-  <h1><span class="emoji">💬</span>Thanks for Your Feedback<span id="client-name"></span>!</h1>
+  <h1><span class="emoji">💬</span> Thanks for Your Feedback!</h1>
+  <div class="stars" id="star-rating"></div>
 
   <div id="happy" class="happy">
-    <p>We're so g
+    <p>We're so glad you had a great experience at <strong><span id="clinic-name-happy"></span></strong> 😊</p>
+    <p>Your opinion means the world to us — and it helps others discover our services too.</p>
+    <p>If you have 30 seconds, please click below and share your experience on Google. Every review helps us grow 💗</p>
+    <a id="review-button" href="#" class="button" target="_blank">⭐ Leave a Google Review</a>
+  </div>
+
+  <div id="unhappy" class="unhappy">
+    <p>We’re sorry we didn’t quite hit the mark at <strong><span id="clinic-name-unhappy"></span></strong> — and we’ll use your comments to do better.</p>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const score = parseInt(urlParams.get('score'), 10);
+    const clinicName = urlParams.get('clinic_name') || '';
+    const googleURL = urlParams.get('google_url') || '#';
+
+    // Personalise the page
+    document.getElementById('clinic-name-happy').textContent = clinicName;
+    document.getElementById('clinic-name-unhappy').textContent = clinicName;
+    document.getElementById('review-button').href = googleURL;
+
+    // Display stars (cap at 5)
+    const stars = '⭐️'.repeat(Math.min(score, 5));
+    document.getElementById('star-rating').textContent = stars;
+
+    // Show section based on score
+    if (score >= 4) {
+      document.getElementById('happy').style.display = 'block';
+    } else {
+      document.getElementById('unhappy').style.display = 'block';
+    }
+  </script>
+</body>
+</html>

@@ -4,17 +4,37 @@
   <title>Thanks for Your Feedback!</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
       text-align: center;
-      padding: 50px;
-      margin: 0;
-      transition: all 0.3s ease;
+      padding: 40px;
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    .happy, .unhappy {
+      display: none;
+    }
+
+    .button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 18px;
+      display: inline-block;
+      margin-top: 20px;
     }
 
     .stars {
-      font-size: 28px;
+      font-size: 32px;
       color: #FFD700;
-      margin: 12px 0;
+      margin: 16px 0;
+    }
+
+    .logo {
+      max-height: 80px;
+      margin-bottom: 20px;
     }
 
     h1 {
@@ -27,35 +47,20 @@
       line-height: 1.6;
       margin: 14px 0;
     }
-
-    .button {
-      background-color: #4CAF50;
-      color: white;
-      padding: 10px 20px;
-      text-decoration: none;
-      border-radius: 5px;
-      margin-top: 20px;
-      display: inline-block;
-      font-size: 18px;
-    }
-
-    .happy, .unhappy {
-      display: none;
-    }
-
-    #clinic-logo {
-      max-height: 80px;
-      margin-bottom: 20px;
-    }
   </style>
 </head>
-<body id="page-body">
+<body>
 
-  <img id="clinic-logo" src="" alt="Clinic Logo" onerror="this.style.display='none'" />
+  <!-- Logo -->
+  <img id="clinic-logo" class="logo" src="" alt="Clinic Logo" onerror="this.style.display='none';" />
 
-  <h1><span class="emoji">💬</span> Thanks for Your Feedback!</h1>
+  <!-- Heading -->
+  <h1><span class="emoji">💬</span> Thanks for Your Feedback, <span id="client-name"></span>!</h1>
+
+  <!-- Star Rating -->
   <div class="stars" id="star-rating"></div>
 
+  <!-- Happy Client Section -->
   <div id="happy" class="happy">
     <p>We're so glad you had a great experience at <strong><span id="clinic-name-happy"></span></strong> 😊</p>
     <p>Your opinion means the world to us — and it helps others discover our services too.</p>
@@ -63,38 +68,44 @@
     <a id="review-button" href="#" class="button" target="_blank">⭐ Leave a Google Review</a>
   </div>
 
+  <!-- Unhappy Client Section -->
   <div id="unhappy" class="unhappy">
-    <p>We’re sorry we didn’t quite hit the mark at <strong><span id="clinic-name-unhappy"></span></strong> — and we’ll use your comments to do better.</p>
+    <p>We’re sorry we didn’t quite hit the mark at <strong><span id="clinic-name-unhappy"></span></strong>.</p>
+    <p>We truly value your feedback and will use it to improve. Thanks again for helping us grow 🙏</p>
   </div>
 
+  <!-- Script -->
   <script>
     const urlParams = new URLSearchParams(window.location.search);
+
     const score = parseInt(urlParams.get('score'), 10);
     const clinicName = urlParams.get('clinic_name') || '';
     const googleURL = urlParams.get('google_url') || '#';
-    const brandColour = urlParams.get('brand_colour') || '#f9f9f9';
-    const textColour = urlParams.get('text_colour') || '#000000';
+    const brandColor = urlParams.get('brand_colour') || '#ffffff';
+    const textColor = urlParams.get('text_colour') || '#000000';
     const logoURL = urlParams.get('logo_url') || '';
+    const clientName = urlParams.get('name') || '';
 
     // Update styles dynamically
-    document.getElementById('page-body').style.backgroundColor = brandColour;
-    document.getElementById('page-body').style.color = textColour;
+    document.body.style.backgroundColor = brandColor;
+    document.body.style.color = textColor;
+
+    // Set personalised values
+    document.getElementById('client-name').textContent = clientName;
+    document.getElementById('clinic-name-happy').textContent = clinicName;
+    document.getElementById('clinic-name-unhappy').textContent = clinicName;
+    document.getElementById('review-button').href = googleURL;
 
     // Set logo
     if (logoURL) {
       document.getElementById('clinic-logo').src = logoURL;
     }
 
-    // Set text
-    document.getElementById('clinic-name-happy').textContent = clinicName;
-    document.getElementById('clinic-name-unhappy').textContent = clinicName;
-    document.getElementById('review-button').href = googleURL;
-
-    // Display stars
+    // Star rating display (max 5)
     const stars = '⭐️'.repeat(Math.min(score, 5));
     document.getElementById('star-rating').textContent = stars;
 
-    // Show correct section
+    // Show correct section based on score
     if (score >= 4) {
       document.getElementById('happy').style.display = 'block';
     } else {

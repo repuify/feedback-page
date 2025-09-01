@@ -2,20 +2,23 @@
 <html>
 <head>
   <title>Thanks for Your Feedback!</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       text-align: center;
-      padding: 40px 20px;
-      background: #FDF7F2;
-      color: #333;
+      padding: 50px;
       margin: 0;
+      transition: all 0.3s ease;
+    }
+
+    .stars {
+      font-size: 28px;
+      color: #FFD700;
+      margin: 12px 0;
     }
 
     h1 {
       font-size: 28px;
-      color: #D96C6C;
       margin-bottom: 10px;
     }
 
@@ -26,37 +29,30 @@
     }
 
     .button {
-      background-color: #FFA07A;
+      background-color: #4CAF50;
       color: white;
-      padding: 14px 24px;
+      padding: 10px 20px;
       text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 18px;
+      border-radius: 5px;
+      margin-top: 20px;
       display: inline-block;
-      margin-top: 25px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      font-size: 18px;
     }
 
     .happy, .unhappy {
       display: none;
-      max-width: 600px;
-      margin: 0 auto;
     }
 
-    .emoji {
-      font-size: 36px;
-      margin-bottom: 10px;
-    }
-
-    .stars {
-      font-size: 28px;
-      color: #FFD700;
-      margin: 12px 0;
+    #clinic-logo {
+      max-height: 80px;
+      margin-bottom: 20px;
     }
   </style>
 </head>
-<body>
+<body id="page-body">
+
+  <img id="clinic-logo" src="" alt="Clinic Logo" onerror="this.style.display='none'" />
+
   <h1><span class="emoji">💬</span> Thanks for Your Feedback!</h1>
   <div class="stars" id="star-rating"></div>
 
@@ -76,17 +72,29 @@
     const score = parseInt(urlParams.get('score'), 10);
     const clinicName = urlParams.get('clinic_name') || '';
     const googleURL = urlParams.get('google_url') || '#';
+    const brandColour = urlParams.get('brand_colour') || '#f9f9f9';
+    const textColour = urlParams.get('text_colour') || '#000000';
+    const logoURL = urlParams.get('logo_url') || '';
 
-    // Personalise the page
+    // Update styles dynamically
+    document.getElementById('page-body').style.backgroundColor = brandColour;
+    document.getElementById('page-body').style.color = textColour;
+
+    // Set logo
+    if (logoURL) {
+      document.getElementById('clinic-logo').src = logoURL;
+    }
+
+    // Set text
     document.getElementById('clinic-name-happy').textContent = clinicName;
     document.getElementById('clinic-name-unhappy').textContent = clinicName;
     document.getElementById('review-button').href = googleURL;
 
-    // Display stars (cap at 5)
+    // Display stars
     const stars = '⭐️'.repeat(Math.min(score, 5));
     document.getElementById('star-rating').textContent = stars;
 
-    // Show section based on score
+    // Show correct section
     if (score >= 4) {
       document.getElementById('happy').style.display = 'block';
     } else {

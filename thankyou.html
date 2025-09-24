@@ -6,7 +6,7 @@
     body {
       font-family: 'Helvetica Neue', Arial, sans-serif;
       text-align: center;
-      padding: 40px;
+      padding: 20px;
       background-color: #ffffff;
       color: #000000;
       margin: 0;
@@ -15,56 +15,57 @@
     .happy, .unhappy {
       display: none;
     }
-.button {
-  background-color: #4CAF50;
-  color: white;
-  text-decoration: none;
-  border-radius: 14px;
-  font-size: 28px;         /* Big text */
-  font-weight: bold;
-  display: block;          /* Full width */
-  width: 95%;              /* Almost edge to edge */
-  margin: 30px auto;       /* Centers button */
-  padding: 24px 0;         /* Nice tall tap target */
-  text-align: center;      /* Centers text inside */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Makes it pop */
-  transition: all 0.2s ease-in-out;
-}
 
-.button:hover {
-  background-color: #45a049;
-  transform: scale(1.05);
-}
+    /* Bigger button, mobile-first */
+    .button {
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      border-radius: 14px;
+      font-size: 28px;
+      font-weight: bold;
+      display: block;
+      width: 95%;
+      margin: 30px auto;
+      padding: 24px 0;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: all 0.2s ease-in-out;
+    }
 
-    /* Mobile: make button full width for easy tapping */
-    @media (max-width: 600px) {
-      .button {
-        display: block;
-        width: 90%;
-        margin: 20px auto;
-      }
+    .button:hover {
+      background-color: #45a049;
+      transform: scale(1.05);
     }
 
     .stars {
-      font-size: 36px;
+      font-size: 42px;   /* Big stars */
       color: #FFD700;
       margin: 20px 0;
     }
 
     .logo {
-      max-height: 100px;
-      margin-bottom: 20px;
+      max-height: 140px;   /* Bigger logo */
+      margin-bottom: 25px;
     }
 
     h1 {
-      font-size: 28px;
+      font-size: 34px;     /* Large heading */
       margin-bottom: 15px;
     }
 
     p {
-      font-size: 20px;
+      font-size: 22px;     /* Larger body text */
       line-height: 1.6;
-      margin: 14px 0;
+      margin: 16px 0;
+    }
+
+    /* Extra tweaks for very small phones */
+    @media (max-width: 400px) {
+      h1 { font-size: 28px; }
+      p { font-size: 20px; }
+      .button { font-size: 24px; padding: 20px 0; }
+      .logo { max-height: 110px; }
     }
   </style>
 </head>
